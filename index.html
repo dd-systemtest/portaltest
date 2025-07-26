@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Punch System - White Theme</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --primary-light: #63b3ed;
+            --secondary: #6c757d;
+            --success: #38a169;
+            --danger: #e53e3e;
+            --warning: #d69e2e;
+            --light: #f7fafc;
+            --dark: #2d3748;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            color: var(--secondary);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+        }
+        
+        .card-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            color: var(--primary);
+        }
+        
+        .card-title i {
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: white;
+            color: var(--dark);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.3);
+        }
+        
+        .btn {
+            padding: 14px 28px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn i {
+            margin-right: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(to right, #3a80d2, #53a3dd);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(to right, var(--secondary), #868e96);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(to right, #5c656d, #767e86);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(to right, var(--danger), #fc8181);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: linear-gradient(to right, #d53737, #ec7171);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.4);
+        }
+        
+        .btn-success {
+            background: linear-gradient(to right, var(--success), #68d391);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: linear-gradient(to right, #2f9160, #58c381);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(56, 161, 105, 0.4);
+        }
+        
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transform: translateX(200%);
+            transition: transform 0.5s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.success {
+            background: linear-gradient(to right, var(--success), #68d391);
+        }
+        
+        .notification.error {
+            background: linear-gradient(to right, var(--danger), #fc8181);
+        }
+        
+        .notification.warning {
+            background: linear-gradient(to right, var(--warning), #f6e05e);
+        }
+        
+        .notification.info {
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            opacity: 1;
+            border-bottom: 3px solid var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background: #f8fafc;
+        }
+        
+        .status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .status.active {
+            background: rgba(56, 161, 105, 0.2);
+            color: var(--success);
+        }
+        
+        .status.inactive {
+            background: rgba(229, 62, 62, 0.2);
+            color: var(--danger);
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+        
+        .stat-card h3 {
+            font-size: 2.5rem;
+            margin: 10px 0;
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stat-card p {
+            font-size: 1.1rem;
+            color: var(--secondary);
+        }
+        
+        .user-list {
+            max-height: 400px;
+            overflow-y: auto;
+            margin: 20px 0;
+            padding-right: 10px;
+        }
+        
+        .user-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            background: white;
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+        }
+        
+        .user-item:hover {
+            background: #f8fafc;
+            transform: translateX(5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 15px;
+            color: white;
+        }
+        
+        .user-info {
+            flex: 1;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+        
+        .user-role {
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .action-btn.view {
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--primary);
+        }
+        
+        .action-btn.edit {
+            background: rgba(237, 137, 54, 0.1);
+            color: #ed8936;
+        }
+        
+        .action-btn.reset {
+            background: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+        }
+        
+        .action-btn.delete {
+            background: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .two-factor {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            border: 1px dashed var(--border);
+        }
+        
+        .two-factor h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+        
+        .otp-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .otp-input {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: white;
+            color: var(--dark);
+        }
+        
+        .resend-otp {
+            margin-top: 15px;
+            text-align: center;
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .resend-otp:hover {
+            text-decoration: underline;
+        }
+        
+        .password-strength {
+            margin-top: 10px;
+            height: 5px;
+            border-radius: 5px;
+            background: var(--border);
+            overflow: hidden;
+        }
+        
+        .strength-meter {
+            height: 100%;
+            width: 0;
+            transition: width 0.3s, background 0.3s;
+        }
+        
+        .strength-text {
+            font-size: 0.8rem;
+            margin-top: 5px;
+            color: var(--secondary);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--secondary);
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .user-info-display {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .user-info-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.8rem;
+            margin-right: 20px;
+            color: white;
+        }
+        
+        .user-info-details {
+            flex: 1;
+        }
+        
+        .user-info-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .user-info-role {
+            font-size: 1rem;
+            color: var(--secondary);
+        }
+        
+        .user-info-ip {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            margin-top: 5px;
+        }
+        
+        .user-info-time {
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+        
+        .edit-form {
+            margin-top: 20px;
+        }
+        
+        .search-bar {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 14px;
+            border-radius: 8px 0 0 8px;
+            border: 1px solid var(--border);
+            background: white;
+            color: var(--dark);
+            font-size: 1rem;
+        }
+        
+        .search-btn {
+            padding: 14px 20px;
+            border-radius: 0 8px 8px 0;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .user-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .user-avatar {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            .action-buttons {
+                margin-top: 10px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-clock"></i> Advanced Punch System</h1>
+            <p>Secure time tracking and attendance management</p>
+        </header>
+        
+        <!-- Login Section -->
+        <div class="card" id="login-section">
+            <h2 class="card-title"><i class="fas fa-sign-in-alt"></i> Login</h2>
+            
+            <div class="form-group">
+                <label for="user-id">User ID</label>
+                <input type="text" id="user-id" class="form-control" placeholder="Enter your user ID (e.g., 0001)">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Enter your password">
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="two-factor-toggle"> Enable Two-Factor Authentication
+                </label>
+            </div>
+            
+            <div class="two-factor hidden" id="two-factor-section">
+                <h3>Two-Factor Authentication</h3>
+                <p>Enter the 6-digit code sent to your registered device</p>
+                
+                <div class="otp-container">
+                    <input type="text" class="otp-input" maxlength="1">
+                    <input type="text" class="otp-input" maxlength="1">
+                    <input type="text" class="otp-input" maxlength="1">
+                    <input type="text" class="otp-input" maxlength="1">
+                    <input type="text" class="otp-input" maxlength="1">
+                    <input type="text" class="otp-input" maxlength="1">
+                </div>
+                
+                <div class="resend-otp">Resend Code</div>
+            </div>
+            
+            <button class="btn btn-primary btn-block" id="login-btn">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+        </div>
+        
+        <!-- Punch Section -->
+        <div class="card hidden" id="punch-section">
+            <h2 class="card-title"><i class="fas fa-hand-paper"></i> Punch System</h2>
+            
+            <div class="user-info">
+                <h3>Welcome, <span id="user-name">Danial Danish</span></h3>
+                <p>Role: <span id="user-role">Head of IT Development</span></p>
+                <p>Your IP: <span id="user-ip">Loading...</span></p>
+                <p>Current Time: <span id="current-time">Loading...</span></p>
+            </div>
+            
+            <div class="tabs">
+                <div class="tab active" data-tab="punch-in-out">Punch In/Out</div>
+                <div class="tab" data-tab="attendance">My Attendance</div>
+            </div>
+            
+            <div class="tab-content active" id="punch-in-out">
+                <div class="form-group">
+                    <button class="btn btn-success btn-block" id="punch-in-btn">
+                        <i class="fas fa-sign-in-alt"></i> Punch In
+                    </button>
+                </div>
+                
+                <div class="form-group">
+                    <button class="btn btn-danger btn-block" id="punch-out-btn">
+                        <i class="fas fa-sign-out-alt"></i> Punch Out
+                    </button>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="attendance">
+                <h3>Recent Attendance</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Punch In</th>
+                            <th>Punch Out</th>
+                            <th>Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attendance-records">
+                        <!-- Attendance records will be populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <button class="btn btn-secondary" id="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+        
+        <!-- Admin Dashboard -->
+        <div class="card hidden" id="admin-section">
+            <h2 class="card-title"><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h2>
+            
+            <div class="user-info-display">
+                <div class="user-info-avatar" id="admin-avatar">DD</div>
+                <div class="user-info-details">
+                    <div class="user-info-name" id="admin-name">Danial Danish</div>
+                    <div class="user-info-role" id="admin-role">Head of IT Development</div>
+                    <div class="user-info-ip" id="admin-ip">Your IP: Loading...</div>
+                    <div class="user-info-time" id="admin-time">Current Time: Loading...</div>
+                </div>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <i class="fas fa-users fa-2x" style="color: var(--primary);"></i>
+                    <h3 id="total-users">12</h3>
+                    <p>Total Crew Members</p>
+                </div>
+                
+                <div class="stat-card">
+                    <i class="fas fa-clock fa-2x" style="color: var(--primary);"></i>
+                    <h3 id="on-time-rate">87%</h3>
+                    <p>On-Time Rate</p>
+                </div>
+                
+                <div class="stat-card">
+                    <i class="fas fa-exclamation-triangle fa-2x" style="color: var(--primary);"></i>
+                    <h3 id="recent-alerts">3</h3>
+                    <p>Recent Alerts</p>
+                </div>
+            </div>
+            
+            <div class="search-bar">
+                <input type="text" class="search-input" id="search-users" placeholder="Search users...">
+                <button class="search-btn" id="add-user-btn">
+                    <i class="fas fa-plus"></i> Add User
+                </button>
+            </div>
+            
+            <div class="tabs">
+                <div class="tab active" data-tab="attendance-reports">Attendance Reports</div>
+                <div class="tab" data-tab="user-management">User Management</div>
+                <div class="tab" data-tab="system-logs">System Logs</div>
+            </div>
+            
+            <div class="tab-content active" id="attendance-reports">
+                <h3>Department Attendance</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Department</th>
+                            <th>Total Hours</th>
+                            <th>Avg. Hours</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="department-stats">
+                        <!-- Department stats will be populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="tab-content" id="user-management">
+                <h3>Crew Members</h3>
+                <div class="user-list" id="user-list">
+                    <!-- User list will be populated dynamically -->
+                </div>
+            </div>
+            
+            <div class="tab-content" id="system-logs">
+                <h3>Audit Logs</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>User</th>
+                            <th>Action</th>
+                            <th>IP Address</th>
+                        </tr>
+                    </thead>
+                    <tbody id="audit-logs">
+                        <!-- Audit logs will be populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <button class="btn btn-secondary" id="admin-logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+        
+        <!-- Notification -->
+        <div class="notification" id="notification">
+            <span id="notification-message"></span>
+        </div>
+        
+        <!-- Add/Edit User Modal -->
+        <div class="modal" id="user-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="modal-title">Add New User</h3>
+                    <button class="close-modal" id="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="user-form">
+                        <div class="form-group">
+                            <label for="modal-user-id">User ID</label>
+                            <input type="text" id="modal-user-id" class="form-control" placeholder="Enter user ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="modal-name">Name</label>
+                            <input type="text" id="modal-name" class="form-control" placeholder="Enter full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="modal-password">Password</label>
+                            <input type="password" id="modal-password" class="form-control" placeholder="Enter password">
+                            <div class="password-strength">
+                                <div class="strength-meter" id="strength-meter"></div>
+                            </div>
+                            <div class="strength-text" id="strength-text">Password strength</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="modal-role">Role</label>
+                            <select id="modal-role" class="form-control">
+                                <option value="Crew Member">Crew Member</option>
+                                <option value="Head of IT Development">Head of IT Development</option>
+                                <option value="HR Manager">HR Manager</option>
+                                <option value="Operations Manager">Operations Manager</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="modal-department">Department</label>
+                            <select id="modal-department" class="form-control">
+                                <option value="IT">IT</option>
+                                <option value="HR">HR</option>
+                                <option value="Operations">Operations</option>
+                                <option value="Marketing">Marketing</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" id="cancel-modal">Cancel</button>
+                    <button class="btn btn-primary" id="save-user">Save User</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // DOM Elements
+        const loginSection = document.getElementById('login-section');
+        const punchSection = document.getElementById('punch-section');
+        const adminSection = document.getElementById('admin-section');
+        const twoFactorToggle = document.getElementById('two-factor-toggle');
+        const twoFactorSection = document.getElementById('two-factor-section');
+        const loginBtn = document.getElementById('login-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const adminLogoutBtn = document.getElementById('admin-logout-btn');
+        const punchInBtn = document.getElementById('punch-in-btn');
+        const punchOutBtn = document.getElementById('punch-out-btn');
+        const notification = document.getElementById('notification');
+        const notificationMessage = document.getElementById('notification-message');
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const otpInputs = document.querySelectorAll('.otp-input');
+        const resendOtp = document.querySelector('.resend-otp');
+        const userModal = document.getElementById('user-modal');
+        const closeModal = document.getElementById('close-modal');
+        const cancelModal = document.getElementById('cancel-modal');
+        const saveUserBtn = document.getElementById('save-user');
+        const addUserBtn = document.getElementById('add-user-btn');
+        const modalTitle = document.getElementById('modal-title');
+        const userForm = document.getElementById('user-form');
+        const searchUsers = document.getElementById('search-users');
+        const userList = document.getElementById('user-list');
+        const attendanceRecords = document.getElementById('attendance-records');
+        const auditLogs = document.getElementById('audit-logs');
+        const departmentStats = document.getElementById('department-stats');
+        const strengthMeter = document.getElementById('strength-meter');
+        const strengthText = document.getElementById('strength-text');
+        const modalPassword = document.getElementById('modal-password');
+        const currentTimeElement = document.getElementById('current-time');
+        const adminTimeElement = document.getElementById('admin-time');
+        const userIpElement = document.getElementById('user-ip');
+        const adminIpElement = document.getElementById('admin-ip');
+        
+        // Mock user data with localStorage persistence
+        let users = JSON.parse(localStorage.getItem('punch_users')) || [
+            {
+                id: '0001',
+                name: 'Danial Danish',
+                password: 'Dd123', // In real system, this would be hashed
+                role: 'Head of IT Development',
+                department: 'IT',
+                status: 'active'
+            },
+            {
+                id: '0002',
+                name: 'John Doe',
+                password: 'Password123!',
+                role: 'Crew Member',
+                department: 'IT',
+                status: 'active'
+            },
+            {
+                id: '0003',
+                name: 'Alice Smith',
+                password: 'Password123!',
+                role: 'Crew Member',
+                department: 'HR',
+                status: 'active'
+            }
+        ];
+        
+        // Mock attendance data
+        let attendanceData = JSON.parse(localStorage.getItem('punch_attendance')) || [
+            { userId: '0002', date: '2023-08-15', punchIn: '08:30:00', punchOut: '17:15:00', duration: '8h 45m' },
+            { userId: '0002', date: '2023-08-14', punchIn: '08:45:00', punchOut: '17:30:00', duration: '8h 45m' },
+            { userId: '0002', date: '2023-08-13', punchIn: '08:15:00', punchOut: '17:00:00', duration: '8h 45m' },
+            { userId: '0003', date: '2023-08-15', punchIn: '09:00:00', punchOut: '17:30:00', duration: '8h 30m' },
+            { userId: '0003', date: '2023-08-14', punchIn: '09:15:00', punchOut: '17:45:00', duration: '8h 30m' }
+        ];
+        
+        // Mock audit logs
+        let auditLogData = JSON.parse(localStorage.getItem('punch_audit_logs')) || [
+            { timestamp: '2023-08-15 08:30:45', user: 'Danial Danish', action: 'System Login', ip: '127.0.0.1' },
+            { timestamp: '2023-08-15 08:32:12', user: 'John Doe', action: 'Punch In', ip: '127.0.0.1' },
+            { timestamp: '2023-08-15 08:35:30', user: 'Alice Smith', action: 'Password Change', ip: '127.0.0.1' },
+            { timestamp: '2023-08-15 08:40:15', user: 'Robert Johnson', action: 'Punch In', ip: '127.0.0.1' },
+            { timestamp: '2023-08-15 08:45:22', user: 'Danial Danish', action: 'User Management', ip: '127.0.0.1' }
+        ];
+        
+        // Current user
+        let currentUser = null;
+        
+        // Real IP address
+        let userIP = '127.0.0.1'; // Will be updated with real IP
+        
+        // Show notification
+        function showNotification(message, type = 'success') {
+            notificationMessage.textContent = message;
+            notification.className = `notification ${type} show`;
+            
+            setTimeout(() => {
+                notification.className = 'notification';
+            }, 3000);
+        }
+        
+        // Toggle two-factor authentication section
+        twoFactorToggle.addEventListener('change', () => {
+            if (twoFactorToggle.checked) {
+                twoFactorSection.classList.remove('hidden');
+            } else {
+                twoFactorSection.classList.add('hidden');
+            }
+        });
+        
+        // OTP input handling
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length === 1) {
+                    if (index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus();
+                    }
+                }
+            });
+            
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value) {
+                    if (index > 0) {
+                        otpInputs[index - 1].focus();
+                    }
+                }
+            });
+        });
+        
+        // Resend OTP
+        resendOtp.addEventListener('click', () => {
+            showNotification('New OTP sent to your device', 'info');
+        });
+        
+        // Get real IP address
+        async function getRealIP() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                userIP = data.ip;
+                
+                if (userIpElement) userIpElement.textContent = `Your IP: ${userIP}`;
+                if (adminIpElement) adminIpElement.textContent = `Your IP: ${userIP}`;
+                
+                return userIP;
+            } catch (error) {
+                console.error('Error getting IP:', error);
+                return '127.0.0.1';
+            }
+        }
+        
+        // Update current time
+        function updateCurrentTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            
+            if (currentTimeElement) currentTimeElement.textContent = `Current Time: ${timeString}`;
+            if (adminTimeElement) adminTimeElement.textContent = `Current Time: ${timeString}`;
+        }
+        
+        // Login functionality
+        loginBtn.addEventListener('click', async () => {
+            const userId = document.getElementById('user-id').value;
+            const password = document.getElementById('password').value;
+            
+            if (!userId || !password) {
+                showNotification('Please enter both User ID and Password', 'error');
+                return;
+            }
+            
+            // Find user
+            const user = users.find(u => u.id === userId);
+            
+            if (!user) {
+                showNotification('Invalid User ID or Password', 'error');
+                return;
+            }
+            
+            if (user.password !== password) {
+                showNotification('Invalid User ID or Password', 'error');
+                return;
+            }
+            
+            // Check if two-factor is enabled
+            if (twoFactorToggle.checked) {
+                const otp = Array.from(otpInputs).map(input => input.value).join('');
+                if (otp.length !== 6) {
+                    showNotification('Please enter the complete 6-digit OTP', 'warning');
+                    return;
+                }
+                
+                // In real system, verify OTP here
+                showNotification('Two-factor authentication successful', 'success');
+            }
+            
+            // Get real IP
+            await getRealIP();
+            
+            // Set current user
+            currentUser = user;
+            
+            // Log login
+            const loginLog = {
+                timestamp: new Date().toISOString(),
+                user: user.name,
+                action: 'System Login',
+                ip: userIP
+            };
+            auditLogData.unshift(loginLog);
+            localStorage.setItem('punch_audit_logs', JSON.stringify(auditLogData));
+            
+            // Update UI
+            document.getElementById('user-name').textContent = user.name;
+            document.getElementById('user-role').textContent = user.role;
+            
+            // Show appropriate section
+            if (user.role === 'Head of IT Development') {
+                loginSection.classList.add('hidden');
+                adminSection.classList.remove('hidden');
+                showNotification(`Welcome, ${user.name}! Full admin access granted.`, 'success');
+                
+                // Update admin dashboard
+                updateAdminDashboard();
+            } else {
+                loginSection.classList.add('hidden');
+                punchSection.classList.remove('hidden');
+                showNotification(`Punch-in successful. Welcome, ${user.name}!`, 'success');
+                
+                // Update attendance records
+                updateAttendanceRecords();
+            }
+            
+            // Update time
+            updateCurrentTime();
+            setInterval(updateCurrentTime, 1000);
+        });
+        
+        // Logout functionality
+        logoutBtn.addEventListener('click', () => {
+            currentUser = null;
+            punchSection.classList.add('hidden');
+            loginSection.classList.remove('hidden');
+            showNotification('You have been logged out successfully', 'info');
+        });
+        
+        adminLogoutBtn.addEventListener('click', () => {
+            currentUser = null;
+            adminSection.classList.add('hidden');
+            loginSection.classList.remove('hidden');
+            showNotification('You have been logged out successfully', 'info');
+        });
+        
+        // Punch in functionality
+        punchInBtn.addEventListener('click', () => {
+            if (!currentUser) return;
+            
+            const punchInTime = new Date().toISOString();
+            const punchInRecord = {
+                userId: currentUser.id,
+                date: new Date().toISOString().split('T')[0],
+                punchIn: punchInTime,
+                punchOut: null,
+                duration: null
+            };
+            
+            // Check if already punched in today
+            const existingRecord = attendanceData.find(a => 
+                a.userId === currentUser.id && 
+                a.date === new Date().toISOString().split('T')[0] &&
+                !a.punchOut
+            );
+            
+            if (existingRecord) {
+                showNotification('You are already punched in!', 'warning');
+                return;
+            }
+            
+            // Add new punch in record
+            attendanceData.push(punchInRecord);
+            localStorage.setItem('punch_attendance', JSON.stringify(attendanceData));
+            
+            // Log punch in
+            const punchInLog = {
+                timestamp: punchInTime,
+                user: currentUser.name,
+                action: 'Punch In',
+                ip: userIP
+            };
+            auditLogData.unshift(punchInLog);
+            localStorage.setItem('punch_audit_logs', JSON.stringify(auditLogData));
+            
+            showNotification(`Punch-in successful. Welcome, ${currentUser.name}!`, 'success');
+            updateAttendanceRecords();
+        });
+        
+        // Punch out functionality
+        punchOutBtn.addEventListener('click', () => {
+            if (!currentUser) return;
+            
+            const today = new Date().toISOString().split('T')[0];
+            const punchInRecord = attendanceData.find(a => 
+                a.userId === currentUser.id && 
+                a.date === today &&
+                !a.punchOut
+            );
+            
+            if (!punchInRecord) {
+                showNotification('You need to punch in first!', 'warning');
+                return;
+            }
+            
+            const punchOutTime = new Date().toISOString();
+            const punchInTime = new Date(punchInRecord.punchIn);
+            const durationMs = punchOutTime - punchInTime;
+            const hours = Math.floor(durationMs / (1000 * 60 * 60));
+            const minutes = Math.floor((durationMs % (1000 * 60 * 60)) / (1000 * 60));
+            const duration = `${hours}h ${minutes}m`;
+            
+            // Update punch out record
+            punchInRecord.punchOut = punchOutTime;
+            punchInRecord.duration = duration;
+            localStorage.setItem('punch_attendance', JSON.stringify(attendanceData));
+            
+            // Log punch out
+            const punchOutLog = {
+                timestamp: punchOutTime,
+                user: currentUser.name,
+                action: 'Punch Out',
+                ip: userIP
+            };
+            auditLogData.unshift(punchOutLog);
+            localStorage.setItem('punch_audit_logs', JSON.stringify(auditLogData));
+            
+            showNotification(`Punch-out successful. Goodbye, ${currentUser.name}!`, 'success');
+            updateAttendanceRecords();
+        });
+        
+        // Tab functionality
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Password strength meter
+        modalPassword.addEventListener('input', () => {
+            const password = modalPassword.value;
+            let strength = 0;
+            
+            if (password.length >= 8) strength += 25;
+            if (password.match(/[A-Z]/)) strength += 25;
+            if (password.match(/[0-9]/)) strength += 25;
+            if (password.match(/[^A-Za-z0-9]/)) strength += 25;
+            
+            strengthMeter.style.width = `${strength}%`;
+            
+            if (strength < 50) {
+                strengthMeter.style.background = '#e53e3e';
+                strengthText.textContent = 'Weak';
+            } else if (strength < 75) {
+                strengthMeter.style.background = '#d69e2e';
+                strengthText.textContent = 'Medium';
+            } else {
+                strengthMeter.style.background = '#38a169';
+                strengthText.textContent = 'Strong';
+            }
+        });
+        
+        // Modal functionality
+        function openModal(isEdit = false, userId = null) {
+            modalTitle.textContent = isEdit ? 'Edit User' : 'Add New User';
+            
+            if (isEdit && userId) {
+                const user = users.find(u => u.id === userId);
+                if (user) {
+                    document.getElementById('modal-user-id').value = user.id;
+                    document.getElementById('modal-name').value = user.name;
+                    document.getElementById('modal-role').value = user.role;
+                    document.getElementById('modal-department').value = user.department;
+                    document.getElementById('modal-password').value = user.password;
+                    modalTitle.textContent = `Edit User: ${user.name}`;
+                }
+            } else {
+                userForm.reset();
+                strengthMeter.style.width = '0';
+                strengthText.textContent = 'Password strength';
+            }
+            
+            userModal.style.display = 'flex';
+        }
+        
+        function closeModalFunc() {
+            userModal.style.display = 'none';
+        }
+        
+        closeModal.addEventListener('click', closeModalFunc);
+        cancelModal.addEventListener('click', closeModalFunc);
+        
+        // Save user
+        saveUserBtn.addEventListener('click', () => {
+            const userId = document.getElementById('modal-user-id').value;
+            const name = document.getElementById('modal-name').value;
+            const password = document.getElementById('modal-password').value;
+            const role = document.getElementById('modal-role').value;
+            const department = document.getElementById('modal-department').value;
+            
+            if (!userId || !name || !password) {
+                showNotification('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            // Check if editing or adding
+            const existingUserIndex = users.findIndex(u => u.id === userId);
+            
+            if (existingUserIndex >= 0) {
+                // Edit existing user
+                users[existingUserIndex] = {
+                    ...users[existingUserIndex],
+                    name,
+                    password,
+                    role,
+                    department
+                };
+                
+                // Log user edit
+                const editLog = {
+                    timestamp: new Date().toISOString(),
+                    user: currentUser.name,
+                    action: `Edit User: ${name}`,
+                    ip: userIP
+                };
+                auditLogData.unshift(editLog);
+                localStorage.setItem('punch_audit_logs', JSON.stringify(auditLogData));
+                
+                showNotification(`User ${name} updated successfully`, 'success');
+            } else {
+                // Add new user
+                const newUser = {
+                    id: userId,
+                    name,
+                    password,
+                    role,
+                    department,
+                    status: 'active'
+                };
+                
+                users.push(newUser);
+                
+                // Log user creation
+                const createLog = {
+                    timestamp: new Date().toISOString(),
+                    user: currentUser.name,
+                    action: `Create User: ${name}`,
+                    ip: userIP
+                };
+                auditLogData.unshift(createLog);
+                localStorage.setItem('punch_audit_logs', JSON.stringify(auditLogData));
+                
+                showNotification(`User ${name} created successfully`, 'success');
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('punch_users', JSON.stringify(users));
+            
+            // Update UI
+            updateAdminDashboard();
+            closeModalFunc();
+        });
+        
+        // Add user button
+        addUserBtn.addEventListener('click', () => {
+            openModal(false);
+        });
+        
+        // Edit user
+        function editUser(userId) {
+            openModal(true, userId);
+        }
+        
+        // Delete user
+        function deleteUser(userId) {
+            if (confirm('Are you sure you want to delete this user?')) {
+                const userIndex = users.findIndex(u => u.id === userId);
+                if (userIndex >= 0) {
+                    const userName = users[userIndex].name;
+                    users.splice(userIndex, 1);
+                    
+                    // Save to localStorage
+                    localStorage.setItem('punch_users', JSON.stringify(users));
+                    
+                    // Log user deletion
+                    const deleteLog = {
+                        timestamp: new Date().toISOString(),
+                        user: currentUser.name,
+                        action: `Delete User: ${userName}`,
+                        ip: userIP
+                    };
+                    auditLogData.unshift(deleteLog);
+                    localStorage.setItem('punch_audit_logs', JSON.stringify(auditLogData));
+                    
+                    showNotification(`User ${userName} deleted successfully`, 'success');
+                    
+                    // Update UI
+                    updateAdminDashboard();
+                }
+            }
+        }
+        
+        // Reset password
+        function resetPassword(userId) {
+            const user = users.find(u => u.id === userId);
+            if (user) {
+                const newPassword = 'Password123!'; // In real system, generate secure password
+                user.password = newPassword;
+                
+                // Save to localStorage
+                localStorage.setItem('punch_users', JSON.stringify(users));
+                
+                // Log password reset
+                const resetLog = {
+                    timestamp: new Date().toISOString(),
+                    user: currentUser.name,
+                    action: `Reset Password: ${user.name}`,
+                    ip: userIP
+                };
+                auditLogData.unshift(resetLog);
+                localStorage.setItem('punch_audit_logs', JSON.stringify(auditLogData));
+                
+                showNotification(`Password reset for ${user.name}`, 'success');
+                
+                // Update UI
+                updateAdminDashboard();
+            }
+        }
+        
+        // Search users
+        searchUsers.addEventListener('input', () => {
+            const searchTerm = searchUsers.value.toLowerCase();
+            updateAdminDashboard(searchTerm);
+        });
+        
+        // Update admin dashboard
+        function updateAdminDashboard(searchTerm = '') {
+            // Update user list
+            userList.innerHTML = '';
+            
+            const filteredUsers = searchTerm 
+                ? users.filter(u => 
+                    u.id.toLowerCase().includes(searchTerm) || 
+                    u.name.toLowerCase().includes(searchTerm) || 
+                    u.role.toLowerCase().includes(searchTerm) ||
+                    u.department.toLowerCase().includes(searchTerm)
+                ) 
+                : users;
+            
+            filteredUsers.forEach(user => {
+                const userItem = document.createElement('div');
+                userItem.className = 'user-item';
+                userItem.innerHTML = `
+                    <div class="user-avatar">${user.name.charAt(0)}</div>
+                    <div class="user-info">
+                        <div class="user-name">${user.name}</div>
+                        <div class="user-role">${user.role} - ${user.department}</div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn view" onclick="viewUser('${user.id}')">View</button>
+                        <button class="action-btn edit" onclick="editUser('${user.id}')">Edit</button>
+                        <button class="action-btn reset" onclick="resetPassword('${user.id}')">Reset</button>
+                        <button class="action-btn delete" onclick="deleteUser('${user.id}')">Delete</button>
+                    </div>
+                `;
+                userList.appendChild(userItem);
+            });
+            
+            // Update department stats
+            departmentStats.innerHTML = '';
+            
+            const departments = [...new Set(users.map(u => u.department))];
+            departments.forEach(dept => {
+                const deptUsers = users.filter(u => u.department === dept);
+                const totalHours = attendanceData
+                    .filter(a => deptUsers.some(u => u.id === a.userId))
+                    .reduce((total, a) => total + (a.duration ? parseInt(a.duration.split('h')[0]) : 0), 0);
+                
+                const avgHours = deptUsers.length > 0 ? (totalHours / deptUsers.length).toFixed(1) : 0;
+                
+                const status = avgHours >= 8 ? 'active' : 'inactive';
+                const statusText = avgHours >= 8 ? 'Good' : 'Below Target';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${dept}</td>
+                    <td>${totalHours}</td>
+                    <td>${avgHours}</td>
+                    <td><span class="status ${status}">${statusText}</span></td>
+                `;
+                departmentStats.appendChild(row);
+            });
+            
+            // Update audit logs
+            auditLogs.innerHTML = '';
+            
+            auditLogData.slice(0, 10).forEach(log => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${new Date(log.timestamp).toLocaleString()}</td>
+                    <td>${log.user}</td>
+                    <td>${log.action}</td>
+                    <td>${log.ip}</td>
+                `;
+                auditLogs.appendChild(row);
+            });
+            
+            // Update stats
+            document.getElementById('total-users').textContent = users.length;
+            document.getElementById('on-time-rate').textContent = '87%';
+            document.getElementById('recent-alerts').textContent = '3';
+        }
+        
+        // Update attendance records
+        function updateAttendanceRecords() {
+            attendanceRecords.innerHTML = '';
+            
+            const userAttendance = attendanceData
+                .filter(a => a.userId === currentUser.id)
+                .sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            userAttendance.forEach(record => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${record.date}</td>
+                    <td>${record.punchIn ? new Date(record.punchIn).toLocaleTimeString() : '-'}</td>
+                    <td>${record.punchOut ? new Date(record.punchOut).toLocaleTimeString() : '-'}</td>
+                    <td>${record.duration || '-'}</td>
+                `;
+                attendanceRecords.appendChild(row);
+            });
+        }
+        
+        // Global functions for user management
+        window.editUser = editUser;
+        window.deleteUser = deleteUser;
+        window.resetPassword = resetPassword;
+        window.viewUser = function(userId) {
+            const user = users.find(u => u.id === userId);
+            if (user) {
+                alert(`User Details:\nID: ${user.id}\nName: ${user.name}\nRole: ${user.role}\nDepartment: ${user.department}`);
+            }
+        };
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Get real IP
+            await getRealIP();
+            
+            // Update time
+            updateCurrentTime();
+            setInterval(updateCurrentTime, 1000);
+        });
+    </script>
+</body>
+</html>
